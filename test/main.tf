@@ -40,3 +40,11 @@ module "eks-cluster-worker" {
   cluster_master_sg_id = module.eks-cluster-master.master_sg_id
 
 }
+
+output "cluster_id" {
+  value = module.eks-cluster-master.cluster_id
+}
+
+output "config_map_aws_auth" {
+  value = module.eks-cluster-worker.config_map_aws_auth
+}

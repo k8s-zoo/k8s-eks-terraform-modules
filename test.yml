@@ -1,11 +1,3 @@
-terraform {
-  required_version = ">0.12"
-}
-
-locals {
-  config_map_aws_auth = <<CONFIGMAPAWSAUTH
-
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,11 +5,8 @@ metadata:
   namespace: kube-system
 data:
   mapRoles: |
-    - rolearn: ${aws_iam_role.worker-cluster.arn}
+    - rolearn: arn:aws:iam::549734399709:role/terraform-eks-worker-cluster
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
         - system:nodes
-CONFIGMAPAWSAUTH
-
-}

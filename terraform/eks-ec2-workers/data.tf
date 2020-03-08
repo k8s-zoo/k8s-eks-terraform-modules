@@ -19,9 +19,9 @@ data "aws_eks_cluster_auth" "cluster" {
 data "template_file" "ec2_userdata" {
   template = "${path.module}/ec2-userdata.sh"
 
-  vars {
+  vars = {
     cluster_name                  = data.aws_eks_cluster.cluster.name
-    cluster_id                    = data.aws_eks_cluster.cluster.id
+    cluster_endpoint              = data.aws_eks_cluster.cluster.endpoint
     cluster_certificate_authority = data.aws_eks_cluster.cluster.certificate_authority.0.data
   }
 }
