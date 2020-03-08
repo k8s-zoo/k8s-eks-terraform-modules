@@ -2,16 +2,11 @@ terraform {
   required_version = ">0.12"
 }
 
-provider "aws" {
-  region = var.aws_reigon
-}
-
-
 locals {
   demo-node-userdata = <<USERDATA
 #!/bin/bash
 set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${var.cluster_endpoint}' --b64-cluster-ca '${var.cluster_cert_autority_data}' '${var.cluster_name}'
+/etc/eks/bootstrap.sh '${data.aws_eks_cluster.cluster.name}' --apiserver-endpoint '${data.aws_eks_cluster.cluster.id}' --b64-cluster-ca '${data.aws_eks_cluster.cluster.certificate_authority.0.data}'
 USERDATA
 
 }

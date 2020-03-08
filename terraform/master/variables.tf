@@ -3,7 +3,7 @@ variable "aws_reigon" {
 }
 
 variable "cluster_name" {
-  type = string
+  type    = string
   default = "mishal-learn"
 }
 

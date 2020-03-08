@@ -13,6 +13,7 @@ output "cluter_version" {
 output "cluster_endpoint" {
   value = aws_eks_cluster.master.endpoint
 }
-output "cluster_cert_authorith_data" {
-  value = aws_eks_cluster.master.certificate_authority[0].data
+
+output "cluster_id" {
+  value = aws_eks_cluster.master.id
 }
