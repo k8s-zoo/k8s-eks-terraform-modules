@@ -22,7 +22,7 @@ data "aws_subnet_ids" "subnets" {
 }
 
 module "eks-cluster-master" {
-  source = "../terraform/master"
+  source = "../terraform/eks-master"
 
   aws_reigon = var.aws_region
   cluster_name = "mishal-learn-eks"
@@ -31,7 +31,7 @@ module "eks-cluster-master" {
 }
 
 module "eks-cluster-worker" {
-  source = "../terraform/workers"
+  source = "../terraform/eks-ec2-workers"
 
   aws_reigon = var.aws_region
   cluster_id = module.eks-cluster-master.cluster_id
