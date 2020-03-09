@@ -24,6 +24,7 @@ module "eks-cluster-worker" {
   cluster_vpc_id       = data.aws_vpc.vpc.id
   cluster_subnets      = data.aws_subnet_ids.subnets.ids
   cluster_master_sg_id = module.eks-cluster-master.master_sg_id
+  worker_keypair_name = "cicd-jenkins"
   owner                = var.owner
   stack                = var.stack
   env                  = var.env

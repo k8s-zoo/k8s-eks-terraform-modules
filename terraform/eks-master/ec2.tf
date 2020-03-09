@@ -11,9 +11,9 @@ resource "aws_security_group" "master-cluster" {
   }
 
   tags = {
-    Name = local.name_prefix
+    Name  = local.name_prefix
     owner = var.owner
     stack = var.stack
-    env = var.env
+    env   = var.env
   }
 }

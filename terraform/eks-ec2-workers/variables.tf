@@ -26,8 +26,12 @@ variable "associate_public_ip_address" {
 }
 
 variable "worker_instance_type" {
-  type = string
+  type    = string
   default = "t2.micro"
+}
+
+variable "worker_keypair_name" {
+  type = string
 }
 
 variable "worker_sg" {

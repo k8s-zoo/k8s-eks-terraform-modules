@@ -50,16 +50,26 @@ resource "aws_security_group_rule" "worker-cluster-ingress-node-https" {
   type                     = "ingress"
 }
 
-resource "aws_launch_configuration" "worker-lc" {
+resource "aws_launch_template" "worker-lt" {
   name                        = local.name_prefix
-  associate_public_ip_address = var.associate_public_ip_address
-  iam_instance_profile        = aws_iam_instance_profile.worker-instance-profile.name
   image_id                    = data.aws_ami.eks-worker.id
   instance_type               = var.worker_instance_type
-  security_groups = concat([
-    aws_security_group.worker-node.id
-  ], var.worker_sg)
-  user_data = data.template_file.ec2_userdata.rendered
+  instance_initiated_shutdown_behavior = "terminate"
+
+  iam_instance_profile  {
+    name = aws_iam_instance_profile.worker-instance-profile.name
+  }
+
+  key_name = var.worker_keypair_name
+  network_interfaces {
+    associate_public_ip_address = var.associate_public_ip_address
+    delete_on_termination       = true
+    subnet_id                   = element(tolist(var.cluster_subnets), 0)
+    security_groups = concat([
+      aws_security_group.worker-node.id
+    ], var.worker_sg)
+  }
+  user_data = base64encode(data.template_file.ec2_userdata.rendered)
 
   lifecycle {
     create_before_destroy = true
@@ -67,12 +77,15 @@ resource "aws_launch_configuration" "worker-lc" {
 }
 
 resource "aws_autoscaling_group" "worker-asg" {
-  desired_capacity     = var.worker_asg_desired_capacity
-  launch_configuration = aws_launch_configuration.worker-lc.id
-  max_size             = var.worker_asg_max_capacity
-  min_size             = var.worker_asg_min_capacity
-  name                 = local.name_prefix
-  vpc_zone_identifier  = var.cluster_subnets
+  desired_capacity    = var.worker_asg_desired_capacity
+  launch_template {
+    id      = aws_launch_template.worker-lt.id
+    version = "$Latest"
+  }
+  max_size            = var.worker_asg_max_capacity
+  min_size            = var.worker_asg_min_capacity
+  name                = local.name_prefix
+  vpc_zone_identifier = var.cluster_subnets
 
   tag {
     key                 = "Name"

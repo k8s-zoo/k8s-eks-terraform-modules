@@ -7,8 +7,8 @@ data "aws_iam_policy_document" "master-node-assume-policy" {
 
     effect = "Allow"
     principals {
-      identifiers = [ "eks.amazonaws.com" ]
-      type = "Service"
+      identifiers = ["eks.amazonaws.com"]
+      type        = "Service"
     }
 
     actions = ["sts:AssumeRole"]

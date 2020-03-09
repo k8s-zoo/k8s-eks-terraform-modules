@@ -7,7 +7,7 @@ resource "aws_iam_role" "master-node" {
   tags = {
     owner = var.owner
     stack = var.stack
-    env = var.env
+    env   = var.env
   }
 
   assume_role_policy = data.aws_iam_policy_document.master-node-assume-policy.json

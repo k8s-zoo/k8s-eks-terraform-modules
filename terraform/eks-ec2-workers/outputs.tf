@@ -10,8 +10,8 @@ output "node_cluster_asg" {
   value = aws_autoscaling_group.worker-asg.name
 }
 
-output "node_cluster_lc" {
-  value = aws_launch_configuration.worker-lc.name
+output "node_cluster_lt" {
+  value = aws_launch_template.worker-lt.name
 }
 
 output "node_cluster_instance_role" {

@@ -3,7 +3,7 @@ variable "aws_region" {
 }
 
 variable "cluster_name" {
-  type    = string
+  type = string
 }
 
 variable "cluster_version" {
@@ -20,22 +20,27 @@ variable "cluster_subnets" {
 }
 
 variable "security_group_ids" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "endpoint_private_access" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "endpoint_public_access" {
-  type = bool
+  type    = bool
   default = true
 }
 
+variable "public_access_cidrs" {
+  type    = list(string)
+  default = ["0.0.0.0/0"]
+}
+
 variable "log_retention_in_days" {
-  type = number
+  type    = number
   default = 7
 }
 
@@ -62,6 +67,6 @@ variable "env" {
 }
 
 variable "tool" {
-  type = string
+  type    = string
   default = "Managed by Terraform"
 }

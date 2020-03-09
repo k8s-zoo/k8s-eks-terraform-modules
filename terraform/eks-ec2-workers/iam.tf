@@ -1,6 +1,6 @@
 resource "aws_iam_role" "worker-cluster" {
   name               = local.name_prefix
-  path = local.path_prefix
+  path               = local.path_prefix
   assume_role_policy = data.aws_iam_policy_document.eks-assume-policy.json
 
   tags = {
@@ -31,7 +31,7 @@ resource "aws_iam_instance_profile" "worker-instance-profile" {
 
 resource "aws_iam_role" "worker-instacne-role" {
   name               = "${local.name_prefix}-ec2-role"
-  path = local.path_prefix
+  path               = local.path_prefix
   assume_role_policy = data.aws_iam_policy_document.ec2-assume-policy.json
 
   tags = {
