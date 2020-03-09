@@ -1,18 +1,9 @@
-resource "aws_security_group" "master-cluster-local-access" {
-  name        = "${var.cluster_name}-local-access"
-  vpc_id      = data.aws_vpc.vpc.id
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [var.local_public_ip]
-  }
-
-  tags = {
-    Name = "${var.cluster_name}-local-access"
-    owner = var.owner
-    stack = var.stack
-    env = var.env
-  }
+resource "aws_security_group_rule" "allow-local-access" {
+  description       = "Allow node to communicate with each other"
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = [data.aws_vpc.vpc.cidr_block]
+  security_group_id = module.eks-cluster-master.master_sg_id
 }

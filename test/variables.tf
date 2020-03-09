@@ -25,10 +25,10 @@ variable "stack" {
 }
 
 variable "env" {
-  default = "env"
+  default = "learn"
 }
 
 variable "tool" {
-  type = string
+  type    = string
   default = "Managed by Terraform"
 }
