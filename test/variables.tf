@@ -5,7 +5,7 @@ variable "aws_region" {
 # EKS Master
 
 variable "cluster_name" {
-  default = "mishal-learn-eks"
+  default = "mishal-learn"
 }
 
 # Inputs

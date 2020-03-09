@@ -64,13 +64,6 @@ resource "aws_launch_configuration" "worker-lc" {
   lifecycle {
     create_before_destroy = true
   }
-
-  tags = {
-    Name  = local.name_prefix
-    owner = var.owner
-    stack = var.stack
-    env   = var.env
-  }
 }
 
 resource "aws_autoscaling_group" "worker-asg" {
