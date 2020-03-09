@@ -5,7 +5,7 @@ resource "aws_eks_cluster" "master" {
   vpc_config {
     endpoint_private_access = var.endpoint_private_access
     endpoint_public_access = var.endpoint_public_access
-    security_group_ids = join(var.security_group_ids, [aws_security_group.master-cluster.id])
+    security_group_ids = concat(var.security_group_ids, [aws_security_group.master-cluster.id])
     subnet_ids = var.cluster_subnets
   }
 

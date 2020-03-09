@@ -56,7 +56,7 @@ resource "aws_launch_configuration" "worker-lc" {
   iam_instance_profile        = aws_iam_instance_profile.worker-instance-profile.name
   image_id                    = data.aws_ami.eks-worker.id
   instance_type               = var.worker_instance_type
-  security_groups = join([
+  security_groups = concat([
     aws_security_group.worker-node.id
   ], var.worker_sg)
   user_data = data.template_file.ec2_userdata.rendered

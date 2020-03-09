@@ -14,7 +14,3 @@ data "aws_iam_policy_document" "master-node-assume-policy" {
     actions = ["sts:AssumeRole"]
   }
 }
-
-data "aws_kms_key" "foo" {
-  key_id = "alias/my-key"
-}
