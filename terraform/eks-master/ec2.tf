@@ -1,6 +1,6 @@
 resource "aws_security_group" "master-cluster" {
-  name        = "terraform-eks-master-cluster"
-  description = "Cluster communication with worker nodes"
+  name        = local.name_prefix
+  description = "Cluster master allow communication with worker nodes."
   vpc_id      = var.cluster_vpc_id
 
   egress {
@@ -11,19 +11,9 @@ resource "aws_security_group" "master-cluster" {
   }
 
   tags = {
-    Name = "terraform-eks-master"
+    Name = local.name_prefix
+    owner = var.owner
+    stack = var.stack
+    env = var.env
   }
-}
-
-# OPTIONAL: Allow inbound traffic from your local workstation external IP
-#           to the Kubernetes. You will need to replace A.B.C.D below with
-#           your real IP. Services like icanhazip.com can help you find this.
-resource "aws_security_group_rule" "master-cluster-ingress-workstation-https" {
-  cidr_blocks       = ["0.0.0.0/0"]
-  description       = "Allow workstation to communicate with the cluster API Server"
-  from_port         = 443
-  protocol          = "tcp"
-  security_group_id = aws_security_group.master-cluster.id
-  to_port           = 443
-  type              = "ingress"
 }

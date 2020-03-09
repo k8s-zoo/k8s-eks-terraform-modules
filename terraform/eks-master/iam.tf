@@ -1,22 +1,15 @@
 ## IAM
 
 resource "aws_iam_role" "master-node" {
-  name = "terraform-eks-master-cluster"
+  name = local.name_prefix
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
+  tags = {
+    owner = var.owner
+    stack = var.stack
+    env = var.env
+  }
+
+  assume_role_policy = data.aws_iam_policy_document.master-node-assume-policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "master-cluster-AmazonEKSClusterPolicy" {
