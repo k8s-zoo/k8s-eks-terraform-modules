@@ -1,21 +1,14 @@
 resource "aws_iam_role" "worker-cluster" {
-  name = "terraform-eks-worker-cluster"
+  name               = local.name_prefix
+  path = local.path_prefix
+  assume_role_policy = data.aws_iam_policy_document.eks-assume-policy.json
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
-
+  tags = {
+    Name  = local.name_prefix
+    owner = var.owner
+    stack = var.stack
+    env   = var.env
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "worker-cluster-AmazonEKSClusterPolicy" {
@@ -31,29 +24,22 @@ resource "aws_iam_role_policy_attachment" "worker-cluster-AmazonEKSServicePolicy
 # Instance profile
 
 resource "aws_iam_instance_profile" "worker-instance-profile" {
-  name = "terraform-eks-worker-instance-profile"
+  name = "${local.name_prefix}-instance-profile"
+  path = local.path_prefix
   role = aws_iam_role.worker-instacne-role.name
 }
 
 resource "aws_iam_role" "worker-instacne-role" {
-  name = "terraform-eks-worker-instance"
-  path = "/"
+  name               = "${local.name_prefix}-ec2-role"
+  path = local.path_prefix
+  assume_role_policy = data.aws_iam_policy_document.ec2-assume-policy.json
 
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "sts:AssumeRole",
-            "Principal": {
-               "Service": "ec2.amazonaws.com"
-            },
-            "Effect": "Allow",
-            "Sid": ""
-        }
-    ]
-}
-EOF
+  tags = {
+    Name  = "${local.name_prefix}-ec2-role"
+    owner = var.owner
+    stack = var.stack
+    env   = var.env
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "worker-instance-AmazonEKSWorkerNodePolicy" {

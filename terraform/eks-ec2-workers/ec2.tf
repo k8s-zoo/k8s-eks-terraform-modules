@@ -1,5 +1,5 @@
 resource "aws_security_group" "worker-node" {
-  name        = "terraform-eks-worker-node"
+  name        = local.name_prefix
   description = "Security group for all nodes in the cluster"
   vpc_id      = var.cluster_vpc_id
 
@@ -12,8 +12,11 @@ resource "aws_security_group" "worker-node" {
   }
 
   tags = {
-    "Name"                                                       = "terraform-eks-worker-node"
-    "kubernetes.io/cluster/${data.aws_eks_cluster.cluster.name}" = "owned"
+    Name                                                             = local.name_prefix
+    owner                                                            = var.owner
+    stack                                                            = var.stack
+    env                                                              = var.env
+    "kubernetes.io/cluster/${data.aws_eks_cluster.eks-cluster.name}" = "owned"
   }
 }
 
@@ -48,37 +51,62 @@ resource "aws_security_group_rule" "worker-cluster-ingress-node-https" {
 }
 
 resource "aws_launch_configuration" "worker-lc" {
-  associate_public_ip_address = true
+  name                        = local.name_prefix
+  associate_public_ip_address = var.associate_public_ip_address
   iam_instance_profile        = aws_iam_instance_profile.worker-instance-profile.name
   image_id                    = data.aws_ami.eks-worker.id
-  instance_type               = "m4.large"
-  name_prefix                 = "terraform-eks-demo"
-  security_groups = [
+  instance_type               = var.worker_instance_type
+  security_groups = join([
     aws_security_group.worker-node.id
-  ]
+  ], var.worker_sg)
   user_data = data.template_file.ec2_userdata.rendered
 
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = {
+    Name  = local.name_prefix
+    owner = var.owner
+    stack = var.stack
+    env   = var.env
+  }
 }
 
 resource "aws_autoscaling_group" "worker-asg" {
-  desired_capacity     = 2
+  desired_capacity     = var.worker_asg_desired_capacity
   launch_configuration = aws_launch_configuration.worker-lc.id
-  max_size             = 2
-  min_size             = 1
-  name                 = "terraform-eks-demo"
+  max_size             = var.worker_asg_max_capacity
+  min_size             = var.worker_asg_min_capacity
+  name                 = local.name_prefix
   vpc_zone_identifier  = var.cluster_subnets
 
   tag {
     key                 = "Name"
-    value               = "terraform-eks-demo"
+    value               = local.name_prefix
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "kubernetes.io/cluster/${data.aws_eks_cluster.cluster.name}"
+    key                 = "owner"
+    value               = var.owner
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "stack"
+    value               = var.stack
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "env"
+    value               = var.env
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "kubernetes.io/cluster/${data.aws_eks_cluster.eks-cluster.name}"
     value               = "owned"
     propagate_at_launch = true
   }

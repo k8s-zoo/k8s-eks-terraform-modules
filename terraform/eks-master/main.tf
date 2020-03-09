@@ -5,6 +5,7 @@ terraform {
 locals {
 
   name_prefix = "${var.cluster_name}-eks-master"
+  path_prefix = "/${var.owner}/${var.aws_region}/${var.stack}/${var.env}/"
 
   kubeconfig = <<KUBECONFIG
 

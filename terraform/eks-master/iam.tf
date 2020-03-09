@@ -2,6 +2,7 @@
 
 resource "aws_iam_role" "master-node" {
   name = local.name_prefix
+  path = local.path_prefix
 
   tags = {
     owner = var.owner

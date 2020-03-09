@@ -3,8 +3,11 @@ terraform {
 }
 
 locals {
-  config_map_aws_auth = <<CONFIGMAPAWSAUTH
 
+  name_prefix = "${data.aws_eks_cluster.eks-cluster.name}-eks-worker"
+  path_prefix = "/${var.owner}/${var.aws_region}/${var.stack}/${var.env}/"
+
+  config_map_aws_auth = <<CONFIGMAPAWSAUTH
 
 apiVersion: v1
 kind: ConfigMap

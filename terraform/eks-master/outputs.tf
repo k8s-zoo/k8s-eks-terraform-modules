@@ -2,6 +2,10 @@ output "kubeconfig" {
   value = local.kubeconfig
 }
 
+output "master_iam_role" {
+  value = aws_iam_role.master-node.id
+}
+
 output "master_sg_id" {
   value = aws_security_group.master-cluster.id
 }
