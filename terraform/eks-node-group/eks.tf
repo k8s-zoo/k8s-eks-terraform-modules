@@ -4,7 +4,7 @@ resource "aws_eks_node_group" "eks-node-group" {
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.example.arn
 
-  remote_access = {
+  remote_access {
     ec2_ssh_key               = var.node_ssh_keypair_name
     source_security_group_ids = concat(var.node_source_security_group_ids, [aws_security_group.node-security-group.id])
   }
