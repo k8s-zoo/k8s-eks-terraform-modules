@@ -11,5 +11,4 @@ See [example](test/main.tf).
     
 ## Overview
 
-- **Build Pipeline**: <https://github.com/mishalshah92/ms92.in/actions/new>
 - **Maintainer**: mishalshah92@gmail.com
