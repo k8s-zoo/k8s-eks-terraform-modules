@@ -13,6 +13,10 @@ variable "cluster_version" {
   default = 1.14
 }
 
+variable "cluster_master_sg_id" {
+  type = string
+}
+
 # Node variables
 
 variable "node_group_name" {
