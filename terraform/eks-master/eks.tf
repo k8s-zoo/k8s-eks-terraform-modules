@@ -27,5 +27,6 @@ resource "aws_eks_cluster" "master" {
   depends_on = [
     aws_iam_role_policy_attachment.master-cluster-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.master-cluster-AmazonEKSServicePolicy,
+    aws_cloudwatch_log_group.master-cluster-cw-loggroup
   ]
 }
