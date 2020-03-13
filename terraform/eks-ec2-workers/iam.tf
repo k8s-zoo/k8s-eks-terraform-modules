@@ -1,6 +1,6 @@
 resource "aws_iam_role" "worker-cluster" {
-  name               = local.name_prefix
-  path               = local.path_prefix
+  name               = "${local.name_prefix}-${var.aws_region}"
+  path               = "/"
   assume_role_policy = data.aws_iam_policy_document.eks-assume-policy.json
 
   tags = {
@@ -8,6 +8,10 @@ resource "aws_iam_role" "worker-cluster" {
     owner = var.owner
     stack = var.stack
     env   = var.env
+  }
+
+  lifecycle {
+    create_before_destroy = false
   }
 }
 
@@ -24,8 +28,7 @@ resource "aws_iam_role_policy_attachment" "worker-cluster-AmazonEKSServicePolicy
 # Instance profile
 
 resource "aws_iam_instance_profile" "worker-instance-profile" {
-  name = "${local.name_prefix}-instance-profile"
-  path = local.path_prefix
+  name = "${local.name_prefix}-${var.aws_region}"
   role = aws_iam_role.worker-instacne-role.name
 }
 
@@ -43,16 +46,16 @@ resource "aws_iam_role" "worker-instacne-role" {
 }
 
 resource "aws_iam_role_policy_attachment" "worker-instance-AmazonEKSWorkerNodePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  policy_arn = data.aws_iam_policy.eks_worker_node_policy.arn
   role       = aws_iam_role.worker-instacne-role.name
 }
 
 resource "aws_iam_role_policy_attachment" "worker-instance-AmazonEKS_CNI_Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  policy_arn = data.aws_iam_policy.eks_cni_policy.arn
   role       = aws_iam_role.worker-instacne-role.name
 }
 
 resource "aws_iam_role_policy_attachment" "worker-instance-AmazonEC2ContainerRegistryReadOnly" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  policy_arn = data.aws_iam_policy.ecs_container_registry_policy.arn
   role       = aws_iam_role.worker-instacne-role.name
 }

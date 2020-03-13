@@ -50,6 +50,16 @@ resource "aws_security_group_rule" "worker-cluster-ingress-node-https" {
   type                     = "ingress"
 }
 
+resource "aws_security_group_rule" "master-cluster-ingress-node-https" {
+  description              = "Allow pods to communicate with the cluster API Server"
+  from_port                = 443
+  protocol                 = "tcp"
+  to_port                  = 443
+  security_group_id        = aws_security_group.worker-node.id
+  source_security_group_id = var.cluster_master_sg_id
+  type                     = "ingress"
+}
+
 resource "aws_launch_template" "worker-lt" {
   name                        = local.name_prefix
   image_id                    = data.aws_ami.eks-worker.id
