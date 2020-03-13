@@ -9,7 +9,7 @@ resource "aws_eks_node_group" "eks-node-group" {
     source_security_group_ids = concat(var.node_source_security_group_ids, [aws_security_group.node-security-group.id])
   }
 
-  release_version = var.cluster_version
+  release_version = data.aws_eks_cluster.eks-cluster.version
   subnet_ids      = var.node_subnets
 
   scaling_config {
@@ -26,7 +26,7 @@ resource "aws_eks_node_group" "eks-node-group" {
     env         = var.env
   }
 
-  version = var.cluster_version
+  version = data.aws_eks_cluster.eks-cluster.version
 
   depends_on = [
     aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
