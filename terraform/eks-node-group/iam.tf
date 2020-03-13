@@ -1,5 +1,5 @@
 resource "aws_iam_role" "example" {
-  name = local.name_prefix
+  name               = local.name_prefix
   assume_role_policy = data.aws_iam_policy_document.worker-node-assume-policy.json
 }
 

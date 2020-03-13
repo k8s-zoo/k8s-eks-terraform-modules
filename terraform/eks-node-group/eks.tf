@@ -1,14 +1,33 @@
 resource "aws_eks_node_group" "example" {
   cluster_name    = data.aws_eks_cluster.eks-cluster.name
+  labels          = var.node_labels
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.example.arn
-  subnet_ids      = var.node_subnets
+
+  remote_access = {
+    ec2_ssh_key               = var.node_ssh_keypair_name
+    source_security_group_ids = var.node_source_security_group_ids
+  }
+
+  release_version = var.cluster_version
+
+  subnet_ids = var.node_subnets
 
   scaling_config {
-    desired_size = 1
-    max_size     = 1
-    min_size     = 1
+    desired_size = var.scaling_desiered_size
+    max_size     = var.scaling_max_size
+    min_size     = var.scaling_min_size
   }
+
+  tags = {
+    Name        = local.name_prefix
+    eks-cluster = data.aws_eks_cluster.eks-cluster.name
+    owner       = var.owner
+    stack       = var.stack
+    env         = var.env
+  }
+
+  version = var.cluster_version
 
   depends_on = [
     aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
