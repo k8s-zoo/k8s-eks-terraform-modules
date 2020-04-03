@@ -7,8 +7,8 @@ Terraform modules for creating kubernetes master and worker cluster on AWS [EKS]
 **Terraform version**: 0.12.23
 
 ## How to use?
-Master: See [example](test/master/main.tf)
-Worker: See [example](test/worker/main.tf)
+- Master: See [example](test/master/main.tf)
+- Worker: See [example](test/worker/main.tf)
 
 ### Developing
 
