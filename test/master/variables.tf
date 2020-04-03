@@ -5,7 +5,7 @@ variable "aws_region" {
 # EKS Master
 
 variable "cluster_name" {
-  default = "mishah-learn"
+  type = "string"
 }
 
 # Tags
