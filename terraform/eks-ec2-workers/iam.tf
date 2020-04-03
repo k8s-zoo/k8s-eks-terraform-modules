@@ -1,31 +1,3 @@
-resource "aws_iam_role" "worker-cluster" {
-  name               = "${local.name_prefix}-${var.aws_region}"
-  assume_role_policy = data.aws_iam_policy_document.eks-assume-policy.json
-
-  tags = {
-    Name  = local.name_prefix
-    owner = var.owner
-    stack = var.stack
-    env   = var.env
-  }
-
-  lifecycle {
-    create_before_destroy = false
-  }
-}
-
-resource "aws_iam_role_policy_attachment" "worker-cluster-AmazonEKSClusterPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.worker-cluster.name
-}
-
-resource "aws_iam_role_policy_attachment" "worker-cluster-AmazonEKSServicePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.worker-cluster.name
-}
-
-# Instance profile
-
 resource "aws_iam_instance_profile" "worker-instance-profile" {
   name = "${local.name_prefix}-${var.aws_region}"
   role = aws_iam_role.worker-instacne-role.name

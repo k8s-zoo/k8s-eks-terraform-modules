@@ -13,7 +13,7 @@ resource "kubernetes_config_map" "worker_config_map" {
 
   data = {
     mapRoles = <<EOT
-- rolearn: ${aws_iam_role.worker-cluster.arn}
+- rolearn: ${aws_iam_role.worker-instacne-role.arn}
   username: system:node:{{EC2PrivateDNSName}}
   groups:
     - system:bootstrappers

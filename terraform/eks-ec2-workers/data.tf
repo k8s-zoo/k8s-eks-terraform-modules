@@ -68,3 +68,11 @@ data "aws_iam_policy_document" "ec2-assume-policy" {
     actions = ["sts:AssumeRole"]
   }
 }
+
+data "template_file" "kubernetes_configmap" {
+  template = file("${path.module}/config_map.yaml")
+
+  vars = {
+    node_iam_role = aws_iam_role.worker-instacne-role.arn
+  }
+}
