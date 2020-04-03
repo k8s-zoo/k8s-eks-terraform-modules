@@ -5,13 +5,7 @@ variable "aws_region" {
 # EKS Master
 
 variable "cluster_name" {
-  default = "mishal-learn"
-}
-
-# Inputs
-
-variable "local_public_ip" {
-  default = "203.192.204.136/32"
+  default = "mishah-learn"
 }
 
 # Tags
