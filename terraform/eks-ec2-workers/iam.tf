@@ -1,6 +1,5 @@
 resource "aws_iam_role" "worker-cluster" {
   name               = "${local.name_prefix}-${var.aws_region}"
-  path               = "/"
   assume_role_policy = data.aws_iam_policy_document.eks-assume-policy.json
 
   tags = {
@@ -30,11 +29,12 @@ resource "aws_iam_role_policy_attachment" "worker-cluster-AmazonEKSServicePolicy
 resource "aws_iam_instance_profile" "worker-instance-profile" {
   name = "${local.name_prefix}-${var.aws_region}"
   role = aws_iam_role.worker-instacne-role.name
+
+  depends_on = [aws_iam_role.worker-instacne-role]
 }
 
 resource "aws_iam_role" "worker-instacne-role" {
   name               = "${local.name_prefix}-ec2-role"
-  path               = local.path_prefix
   assume_role_policy = data.aws_iam_policy_document.ec2-assume-policy.json
 
   tags = {

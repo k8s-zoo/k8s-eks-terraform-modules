@@ -3,7 +3,7 @@
 set -o xtrace
 
 echo "preserve_hostname: true" >> /etc/cloud/cloud.cfg
-hostnamectl set-hostname $(curl -s http://169.254.169.254/latest/meta-data/hostname | cut -d' ' -f2 | cut -d. -f1)
+hostnamectl set-hostname "$(curl -s http://169.254.169.254/latest/meta-data/hostname | cut -d' ' -f2 | cut -d. -f1).${aws_region}.compute.internal"
 rm -rf /var/lib/cloud/instances/
 systemctl restart systemd-hostnamed.service
 systemctl restart cloud-init

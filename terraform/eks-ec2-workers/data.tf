@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 data "aws_eks_cluster" "eks-cluster" {
   name = var.cluster_id
 }
@@ -32,6 +34,7 @@ data "template_file" "ec2_userdata" {
   template = file("${path.module}/ec2-userdata.sh")
 
   vars = {
+    aws_region = data.aws_region.current.name
     cluster_name                  = data.aws_eks_cluster.eks-cluster.name
     cluster_endpoint              = data.aws_eks_cluster.eks-cluster.endpoint
     cluster_certificate_authority = data.aws_eks_cluster.eks-cluster.certificate_authority.0.data
