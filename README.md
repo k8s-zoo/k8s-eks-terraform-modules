@@ -7,8 +7,8 @@ Terraform modules for creating kubernetes master and worker cluster on AWS [EKS]
 **Terraform version**: 0.12.23
 
 ## How to use?
-- Master: See [example](test/master/main.tf)
-- Worker: See [example](test/worker/main.tf)
+- Master: See [example](test/eks_master/main.tf)
+- Worker: See [example](test/ec2_node_groups/main.tf)
 
 ### Developing
 
@@ -28,15 +28,15 @@ $ make [Target]
     It will destroy the EKS cluster. Default aws region is `us-west-2`. 
     To override region, execute  `$ make destroy-master name={cluster_name} aws_region={region}    
 
-- `$ make deploy-ec2-worker name={cluster_name}`
+- `$ make deploy-ec2-nodes name={cluster_name}`
 
     It will create the EC2 node group for EKS cluster. Default aws region is `us-west-2`. 
-    To override region, execute  `$ make deploy-worker name={cluster_name} aws_region={region}`
+    To override region, execute  `$ make deploy-ec2-nodes name={cluster_name} aws_region={region}`
  
-- `$ make destroy-ec2-worker name={cluster_name}`
+- `$ make destroy-ec2-nodes name={cluster_name}`
 
     It will destroy EC2 node group for EKS cluster. Default aws region is `us-west-2`. 
-    To override region, execute `$ make destroy-worker name={cluster_name} aws_region={region}`
+    To override region, execute `$ make destroy-ec2-nodes name={cluster_name} aws_region={region}`
 
 
 #### Update local Kubernetes config
