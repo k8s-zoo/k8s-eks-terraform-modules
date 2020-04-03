@@ -5,7 +5,7 @@ terraform {
 locals {
 
   name_prefix = "${var.cluster_name}-eks-master"
-  kubeconfig = <<KUBECONFIG
+  kubeconfig  = <<KUBECONFIG
 
 
 apiVersion: v1

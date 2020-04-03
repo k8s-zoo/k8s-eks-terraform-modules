@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "eks-cluster-master" {
-  source = "../../terraform/eks-master"
+  source = "../../terraform/eks_master"
 
   aws_region              = var.aws_region
   cluster_name            = var.cluster_name

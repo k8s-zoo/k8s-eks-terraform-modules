@@ -61,12 +61,12 @@ resource "aws_security_group_rule" "master-cluster-ingress-node-https" {
 }
 
 resource "aws_launch_template" "worker-lt" {
-  name                        = local.name_prefix
-  image_id                    = data.aws_ami.eks-worker.id
-  instance_type               = var.worker_instance_type
+  name                                 = local.name_prefix
+  image_id                             = data.aws_ami.eks-worker.id
+  instance_type                        = var.worker_instance_type
   instance_initiated_shutdown_behavior = "terminate"
 
-  iam_instance_profile  {
+  iam_instance_profile {
     name = aws_iam_instance_profile.worker-instance-profile.name
   }
 
@@ -87,7 +87,7 @@ resource "aws_launch_template" "worker-lt" {
 }
 
 resource "aws_autoscaling_group" "worker-asg" {
-  desired_capacity    = var.worker_asg_desired_capacity
+  desired_capacity = var.worker_asg_desired_capacity
   launch_template {
     id      = aws_launch_template.worker-lt.id
     version = "$Latest"

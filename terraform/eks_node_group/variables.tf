@@ -65,7 +65,7 @@ variable "node_ssh_keypair_name" {
 }
 
 variable "node_source_security_group_ids" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
