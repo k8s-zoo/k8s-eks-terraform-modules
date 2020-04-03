@@ -43,6 +43,10 @@ resource "aws_iam_role" "worker-instacne-role" {
     stack = var.stack
     env   = var.env
   }
+
+  lifecycle {
+    create_before_destroy = false
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "worker-instance-AmazonEKSWorkerNodePolicy" {
