@@ -12,11 +12,11 @@ validate:
 	terraform init $(TEST_EKS_NODE_GROUP) && terraform validate $(TEST_EKS_NODE_GROUP)
 	terraform init $(TEST_EC2_NODE_GROUP) && terraform validate $(TEST_EC2_NODE_GROUP)
 
-deploy-master:
+deploy-eks-master:
 	terraform init $(TEST_EKS_MASTER)
 	terraform apply -state=$(TEST_EKS_MASTER)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_MASTER_VAR_FILE) --auto-approve $(TEST_EKS_MASTER)
 
-destroy-master:
+destroy-eks-master:
 	terraform init $(TEST_EKS_MASTER)
 	terraform destroy -state=$(TEST_EKS_MASTER)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_MASTER_VAR_FILE) --auto-approve $(TEST_EKS_MASTER)
 

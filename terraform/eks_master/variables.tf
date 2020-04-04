@@ -3,8 +3,8 @@ variable "cluster_name" {
 }
 
 variable "cluster_version" {
-  type    = number
-  default = 1.15
+  type    = string
+  default = "1.15"
 }
 
 variable "cluster_vpc_id" {

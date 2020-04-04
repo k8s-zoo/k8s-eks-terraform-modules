@@ -30,11 +30,11 @@ $ make [Target]
 
 #### **Targets**
 
-- `$ make deploy-master`
+- `$ make deploy-eks-master`
 
     It will create the EKS cluster. This will generate the kubeconfig file with name `kubeconfig.yaml`.
  
-- `$ make destroy-master`
+- `$ make destroy-eks-master`
 
     It will destroy the EKS cluster.x    
 
