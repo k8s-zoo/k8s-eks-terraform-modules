@@ -32,15 +32,16 @@ $ make [Target]
 
 - `$ make deploy-master`
 
-    It will create the EKS cluster.
+    It will create the EKS cluster. This will generate the kubeconfig file with name `kubeconfig.yaml`.
  
 - `$ make destroy-master`
 
-    It will destroy the EKS cluster.    
+    It will destroy the EKS cluster.x    
 
 - `$ make deploy-ec2-nodes`
 
-    It will create the EC2 node group for EKS cluster.
+    It will create the EC2 node group for EKS cluster. This will generate the Kubernetes config map file with
+    name `k8s_config_map_aws_auth.yaml`
  
 - `$ make destroy-ec2-nodes`
 
@@ -66,7 +67,7 @@ $ aws eks --region {aws_region} update-kubeconfig --name {cluster_name}
 -  Apply Kubernetes config
 
 ```shell script
-$ kubectl apply -f config_map_aws_auth.yaml
+$ kubectl apply -f k8s_config_map_aws_auth.yaml
 ```
 
 -  To view nodes

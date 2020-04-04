@@ -1,5 +1,9 @@
 output "kubeconfig" {
-  value = local.kubeconfig
+  value = data.template_file.kubeconfig.rendered
+}
+
+output "eks_command" {
+  value = local.eks_command
 }
 
 output "master_iam_role" {
