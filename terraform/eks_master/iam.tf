@@ -1,7 +1,7 @@
 ## IAM
 
 resource "aws_iam_role" "master-node" {
-  name = "${local.name_prefix}-${var.aws_region}"
+  name = "${local.name_prefix}-${data.aws_region.current.name}"
 
   tags = {
     owner = var.owner

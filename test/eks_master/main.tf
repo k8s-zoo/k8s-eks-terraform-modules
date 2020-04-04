@@ -5,7 +5,6 @@ provider "aws" {
 module "eks-cluster-master" {
   source = "../../terraform/eks_master"
 
-  aws_region              = var.aws_region
   cluster_name            = var.eks_cluster_name
   cluster_vpc_id          = data.aws_vpc.vpc.id
   cluster_subnets         = data.aws_subnet_ids.subnets.ids

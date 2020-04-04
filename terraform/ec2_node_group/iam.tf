@@ -1,5 +1,5 @@
 resource "aws_iam_instance_profile" "worker-instance-profile" {
-  name = "${local.name_prefix}-${var.aws_region}"
+  name = "${local.name_prefix}-${data.aws_region.current.name}"
   role = aws_iam_role.worker-instacne-role.name
 
   depends_on = [aws_iam_role.worker-instacne-role]

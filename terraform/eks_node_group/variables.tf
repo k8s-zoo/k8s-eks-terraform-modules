@@ -1,7 +1,3 @@
-variable "aws_region" {
-  type = string
-}
-
 # Cluster
 
 variable "cluster_id" {

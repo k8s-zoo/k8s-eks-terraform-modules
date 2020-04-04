@@ -9,7 +9,7 @@ Terraform modules for creating kubernetes master and worker cluster on AWS [EKS]
 - EKS Node Group: See [example](test/eks_node-group/main.tf)
 - EC2 Node Group: See [example](test/ec2_node_groups/main.tf)
 
-## Developing
+## Test
 
 **Terraform version**: 0.12.23
 
