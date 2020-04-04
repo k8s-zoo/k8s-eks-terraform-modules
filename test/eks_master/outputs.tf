@@ -9,3 +9,7 @@ output "master_sg_id" {
 output "eks_command" {
   value = module.eks-cluster-master.eks_command
 }
+
+output "kubeconfig" {
+  value = module.eks-cluster-master.kubeconfig
+}

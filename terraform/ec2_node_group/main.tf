@@ -8,5 +8,5 @@ locals {
 
 resource "local_file" "k8s_config_map" {
   content  = data.template_file.kubernetes_configmap.rendered
-  filename = "${path.module}/k8s_config_map_aws_auth.yaml"
+  filename = "k8s_config_map_aws_auth.yaml"
 }

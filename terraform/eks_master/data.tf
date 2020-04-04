@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "master-node-assume-policy" {
 }
 
 data "template_file" "kubeconfig" {
-  template = "${path.module}/kubeconfig.yml"
+  template = file("${path.module}/kubeconfig.yml")
 
   vars = {
     eks_master_endpoint = aws_eks_cluster.master.endpoint

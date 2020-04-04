@@ -9,5 +9,5 @@ locals {
 
 resource "local_file" "kubeconfig" {
   content  = data.template_file.kubeconfig.rendered
-  filename = "${path.module}/kubeconfig.yaml"
+  filename = "kubeconfig.yaml"
 }

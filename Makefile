@@ -14,24 +14,24 @@ validate:
 
 deploy-master:
 	terraform init $(TEST_EKS_MASTER)
-	terraform apply -state=$(TEST_EKS_MASTER) -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_MASTER_VAR_FILE) --auto-approve $(TEST_EKS_MASTER)
+	terraform apply -state=$(TEST_EKS_MASTER)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_MASTER_VAR_FILE) --auto-approve $(TEST_EKS_MASTER)
 
 destroy-master:
 	terraform init $(TEST_EKS_MASTER)
-	terraform destroy -state=$(TEST_EKS_MASTER) -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_MASTER_VAR_FILE) --auto-approve $(TEST_EKS_MASTER)
+	terraform destroy -state=$(TEST_EKS_MASTER)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_MASTER_VAR_FILE) --auto-approve $(TEST_EKS_MASTER)
 
 deploy-ec2-nodes:
 	terraform init $(TEST_EC2_NODE_GROUP)
-	terraform apply -state=$(TEST_EC2_NODE_GROUP) -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EC2_NODE_VAR_FILE) --auto-approve $(TEST_EC2_NODE_GROUP)
+	terraform apply -state=$(TEST_EC2_NODE_GROUP)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EC2_NODE_VAR_FILE) --auto-approve $(TEST_EC2_NODE_GROUP)
 
 destroy-ec2-nodes:
 	terraform init $(TEST_EC2_NODE_GROUP)
-	terraform destroy -state=$(TEST_EC2_NODE_GROUP) -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EC2_NODE_VAR_FILE) --auto-approve $(TEST_EC2_NODE_GROUP)
+	terraform destroy -state=$(TEST_EC2_NODE_GROUP)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EC2_NODE_VAR_FILE) --auto-approve $(TEST_EC2_NODE_GROUP)
 
 deploy-eks-nodes:
 	terraform init $(TEST_EKS_NODE_GROUP)
-	terraform apply -state=$(TEST_EKS_NODE_GROUP) -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_NODE_VAR_FILE) --auto-approve $(TEST_EKS_NODE_GROUP)
+	terraform apply -state=$(TEST_EKS_NODE_GROUP)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_NODE_VAR_FILE) --auto-approve $(TEST_EKS_NODE_GROUP)
 
 destroy-eks-nodes:
 	terraform init $(TEST_EKS_NODE_GROUP)
-	terraform destroy -state=$(TEST_EKS_NODE_GROUP) -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_NODE_VAR_FILE) --auto-approve $(TEST_EKS_NODE_GROUP)
+	terraform destroy -state=$(TEST_EKS_NODE_GROUP)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_NODE_VAR_FILE) --auto-approve $(TEST_EKS_NODE_GROUP)

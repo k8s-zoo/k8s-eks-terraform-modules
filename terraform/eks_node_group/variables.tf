@@ -4,10 +4,6 @@ variable "cluster_id" {
   type = string
 }
 
-variable "cluster_master_sg_id" {
-  type = string
-}
-
 # Node variables
 
 variable "node_group_name" {
