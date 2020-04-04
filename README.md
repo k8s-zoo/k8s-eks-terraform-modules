@@ -2,31 +2,33 @@
 
 ## Introduction
 
-Terraform modules for creating kubernetes master and worker cluster on AWS [EKS](https://aws.amazon.com/eks/)
+Terraform modules for creating kubernetes master and worker cluster on AWS [EKS](https://aws.amazon.com/eks/).
 
 ## Examples
 - EKS Master: See [example](test/eks_master/main.tf)
 - EKS Node Group: See [example](test/eks_node-group/main.tf)
 - EC2 Node Group: See [example](test/ec2_node_groups/main.tf)
 
-### Developing
+## Developing
 
 **Terraform version**: 0.12.23
 
-#### **Param files**
+### **Param files**
 
-We set the configurations into the param file into [test](test) directory. Please update if require.
+Configurations are set into the [param files](test). Please update if require.
 
 - **Common Params**: [commons.tfvars](test/commons.tfvars)
 - **EKS Master Params**: [eks_master.tfvars](test/eks_master.tfvars)
 - **EC2 Node Group Params**: [ec2_node_group.tfvars](test/ec2_node_group.tfvars)
 - **EKS Node Group Params**: [eks_node_group.tfvars](test/eks_node_group.tfvars)
 
+### **How to execute?**
+
 ```shell script
 $ make [Target]
 ```
 
-#### **Targets**
+### **Targets**
 
 - `$ make deploy-master`
 
@@ -57,7 +59,7 @@ $ make [Target]
 $ aws eks --region {aws_region} update-kubeconfig --name {cluster_name}
 ```
 
-#### Apply Kubernetes config.
+#### Apply Kubernetes config
 ```shell script
 $ kubectl apply -f config_map_aws_auth.yaml
 ```
