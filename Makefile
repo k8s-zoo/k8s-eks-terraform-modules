@@ -19,7 +19,7 @@ deploy-ec2-nodes:
 destroy-ec2-nodes:
 	terraform init $(TEST_EC2_NODE_GROUP) && terraform destroy -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EC2_NODE_VAR_FILE) --auto-approve $(TEST_EC2_NODE_GROUP)
 
-destroy-eks-nodes:
+deploy-eks-nodes:
 	terraform init $(TEST_EKS_NODE_GROUP) && terraform apply -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_NODE_VAR_FILE) --auto-approve $(TEST_EKS_NODE_GROUP)
 
 destroy-eks-nodes:
