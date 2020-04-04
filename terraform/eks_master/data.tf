@@ -26,3 +26,7 @@ data "template_file" "kubeconfig" {
     eks_master_name     = var.cluster_name
   }
 }
+
+data "aws_eks_cluster_auth" "eks-cluster" {
+  name = aws_eks_cluster.master.id
+}

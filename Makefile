@@ -35,3 +35,9 @@ deploy-eks-nodes:
 destroy-eks-nodes:
 	terraform init $(TEST_EKS_NODE_GROUP)
 	terraform destroy -state=$(TEST_EKS_NODE_GROUP)/terraform.tfstate -var-file=$(TEST_COMMONS_VAR_FILE) -var-file=$(TEST_EKS_NODE_VAR_FILE) --auto-approve $(TEST_EKS_NODE_GROUP)
+
+install-metric-server:
+	cd bin/ && ./install_metrics-server.sh
+
+install-k8s-dashboard:
+	cd bin/ && ./install_k8s_dashboard.sh $(ver)
