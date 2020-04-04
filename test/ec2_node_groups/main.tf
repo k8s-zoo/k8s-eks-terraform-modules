@@ -5,10 +5,7 @@ provider "aws" {
 module "eks-cluster-worker" {
   source = "../../terraform/ec2_node_group"
 
-  cluster_id = var.eks_master_id
-  #cluster_vpc_id       = data.aws_vpc.vpc.id
-  #cluster_subnets      = data.aws_subnet_ids.subnets.ids
-  #cluster_master_sg_id = var.eks_master_sg_id
+  cluster_id          = var.eks_cluster_name
   worker_keypair_name = var.eks_nodes_keypair
   owner               = var.owner
   stack               = var.stack

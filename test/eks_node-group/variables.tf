@@ -4,11 +4,7 @@ variable "aws_region" {
 
 # EKS master
 
-variable "eks_master_id" {
-  type = string
-}
-
-variable "eks_master_sg_id" {
+variable "eks_cluster_name" {
   type = string
 }
 

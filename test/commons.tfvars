@@ -1,4 +1,5 @@
-aws_region = "us-west-2"
+aws_region       = "us-west-2"
+eks_cluster_name = "mishal-learn"
 access_cidr_blocks = [
   "10.0.0.0/8"
 ]

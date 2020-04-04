@@ -2,7 +2,7 @@ variable "aws_region" {
   default = "us-west-2"
 }
 
-variable "eks_master_id" {
+variable "eks_cluster_name" {
   type = string
 }
 
