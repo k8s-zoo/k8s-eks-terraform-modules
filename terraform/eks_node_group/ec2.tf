@@ -36,7 +36,7 @@ resource "aws_security_group_rule" "node-security-group-ingress-cluster" {
   protocol                 = "tcp"
   security_group_id        = aws_security_group.node-security-group.id
   #source_security_group_id = var.cluster_master_sg_id
-  source_security_group_id = data.aws_eks_cluster.eks-cluster.vpc_config['luster_security_group_id']
+  source_security_group_id = data.aws_eks_cluster.eks-cluster.vpc_config["luster_security_group_id"]
   to_port                  = 65535
   type                     = "ingress"
 }
