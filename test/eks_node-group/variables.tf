@@ -18,7 +18,7 @@ variable "eks_node_group_name" {
   type = string
 }
 
-variable "eks_node_ssh_key_name" {
+variable "eks_nodes_keypair" {
   type = string
 }
 
@@ -27,6 +27,11 @@ variable "eks_node_labels" {
   default = {
     "env" = "test"
   }
+}
+
+variable "access_cidr_blocks" {
+  type    = list(string)
+  default = []
 }
 
 # Tags

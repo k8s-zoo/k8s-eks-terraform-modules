@@ -4,8 +4,23 @@ variable "aws_region" {
 
 # EKS Master
 
-variable "cluster_name" {
+variable "eks_cluster_name" {
   type = string
+}
+
+variable "endpoint_private_access" {
+  type    = bool
+  default = true
+}
+
+variable "endpoint_public_access" {
+  type    = bool
+  default = false
+}
+
+variable "access_cidr_blocks" {
+  type    = list(string)
+  default = []
 }
 
 # Tags

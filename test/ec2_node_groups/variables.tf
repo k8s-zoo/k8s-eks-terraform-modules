@@ -3,13 +3,20 @@ variable "aws_region" {
 }
 
 variable "eks_master_id" {
-  type    = string
-  default = "mishah-learn"
+  type = string
 }
 
-variable "master_sg_id" {
-  type    = string
-  default = "sg-02a2b52b83914b09f"
+variable "eks_master_sg_id" {
+  type = string
+}
+
+variable "eks_nodes_keypair" {
+  type = string
+}
+
+variable "access_cidr_blocks" {
+  type    = list(string)
+  default = []
 }
 
 # Tags
