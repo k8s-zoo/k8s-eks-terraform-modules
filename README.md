@@ -28,7 +28,7 @@ Configurations are set into the [param files](test). Please update if require.
 $ make [Target]
 ```
 
-### **Targets**
+#### **Targets**
 
 - `$ make deploy-master`
 
@@ -54,17 +54,23 @@ $ make [Target]
 
     It will destroy EKS node group for EKS cluster.
 
-#### Update local Kubernetes config
+
+#### Post operations
+
+- After deploying EKS master, you have to update local kubernetes config. 
+
 ```shell script
 $ aws eks --region {aws_region} update-kubeconfig --name {cluster_name}
 ```
 
-#### Apply Kubernetes config
+-  Apply Kubernetes config
+
 ```shell script
 $ kubectl apply -f config_map_aws_auth.yaml
 ```
 
-#### To view nodes
+-  To view nodes
+
 ```shell script
 $ kubectl get nodes --watch
 ```
