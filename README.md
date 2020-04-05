@@ -4,7 +4,7 @@
 
 Terraform modules for creating kubernetes master and worker cluster on AWS [EKS](https://aws.amazon.com/eks/).
 
-**Terraform version**: 0.12.23
+**Terraform version**: `0.12.23`
 
 ## List of modules
 
