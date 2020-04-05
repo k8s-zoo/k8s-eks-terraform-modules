@@ -1,4 +1,4 @@
-# EKS Master
+# EKS Node Group
 
 ## Introduction
 

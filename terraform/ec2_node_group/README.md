@@ -1,4 +1,4 @@
-# EKS Master
+# EC2 Node Group
 
 ## Introduction
 
