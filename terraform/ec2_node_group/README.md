@@ -30,7 +30,7 @@ data "aws_subnet_ids" "subnets" {
 }
 
 module "eks-cluster-master" {
-  source = "../../terraform/eks_master"
+  source = "git@github.com/k8s-zoo/k8s-eks-terraform-modules.git//terraform/eks_master"
 
   cluster_name            = "mishal-learn"
   cluster_vpc_id          = data.aws_vpc.vpc.id
@@ -43,7 +43,7 @@ module "eks-cluster-master" {
 }
 
 module "eks-cluster-worker" {
-  source = "../../terraform/ec2_node_group"
+  source = "git@github.com/k8s-zoo/k8s-eks-terraform-modules.git//terraform/ec2_node_group"
 
   cluster_id          = module.eks-cluster-master.cluster_id
   worker_keypair_name = "my-ssh-key"

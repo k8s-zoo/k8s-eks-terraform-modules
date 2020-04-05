@@ -6,7 +6,7 @@ Terraform modules for creating kubernetes master and worker cluster on AWS [EKS]
 
 **Terraform version**: 0.12.23
 
-# List of modules
+## List of modules
 
 - [eks_master](eks_master)
 - [eks_node_group](eks_node_group)
@@ -32,6 +32,6 @@ $ kubectl apply -f k8s_config_map_aws_auth.yaml
 $ kubectl get nodes --watch
 ```
     
-## Overview
+### Overview
 
 - **Maintainer**: mishalshah92@gmail.com

@@ -30,7 +30,7 @@ data "aws_subnet_ids" "subnets" {
 }
 
 module "eks-cluster-master" {
-  source = "../../terraform/eks_master"
+  source = "git@github.com/k8s-zoo/k8s-eks-terraform-modules.git//terraform/eks_master"
 
   cluster_name            = "mishal-learn"
   cluster_vpc_id          = data.aws_vpc.vpc.id
