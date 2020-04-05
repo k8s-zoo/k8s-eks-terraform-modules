@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Terraform modules create Kubernetes master on AWS EKS.
+Terraform modules create Node Group on AWS EKS.
 
 ## Development
 
@@ -57,7 +57,7 @@ module "eks-node-group" {
   env                   = "learn"
 }
 
-resource "aws_security_group_rule" "allow-local-access" {
+resource "aws_security_group_rule" "allow-master-local-access" {
   description       = "Allow node to communicate from VPN"
   type              = "ingress"
   from_port         = 0
@@ -67,6 +67,18 @@ resource "aws_security_group_rule" "allow-local-access" {
     "0.0.0.0/0"
   ]
   security_group_id = module.eks-cluster-master.master_sg_id
+}
+
+resource "aws_security_group_rule" "allow-node-local-access" {
+  description       = "Allow node to communicate from VPN"
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = [
+    "0.0.0.0/0"
+  ]
+  security_group_id = module.eks-node-group.node_sg_id
 }
 
 ```

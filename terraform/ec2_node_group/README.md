@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Terraform modules create Kubernetes master on AWS EKS.
+Terraform modules to create EC2 node group for AWS EKS.
 
 ## Development
 
@@ -42,7 +42,7 @@ module "eks-cluster-master" {
   env                     = "learn"
 }
 
-module "eks-cluster-worker" {
+module "ec2-cluster-worker" {
   source = "git@github.com/k8s-zoo/k8s-eks-terraform-modules.git//terraform/ec2_node_group"
 
   cluster_id          = module.eks-cluster-master.cluster_id
@@ -52,7 +52,7 @@ module "eks-cluster-worker" {
   env                 = "learn"
 }
 
-resource "aws_security_group_rule" "allow-local-access" {
+resource "aws_security_group_rule" "allow-master-local-access" {
   description       = "Allow node to communicate from VPN"
   type              = "ingress"
   from_port         = 0
@@ -62,6 +62,16 @@ resource "aws_security_group_rule" "allow-local-access" {
     "0.0.0.0/0"
   ]
   security_group_id = module.eks-cluster-master.master_sg_id
+}
+
+resource "aws_security_group_rule" "allow-node-local-access" {
+  description       = "Allow node to communicate from VPN"
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  cidr_blocks       = var.access_cidr_blocks
+  security_group_id = module.ec2-cluster-worker.node_cluster_sg_id
 }
 
 ```
