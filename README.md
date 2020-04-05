@@ -12,7 +12,7 @@ Terraform modules for creating kubernetes master and worker cluster on AWS [EKS]
 - [eks_node_group](eks_node_group)
 - [ec2_node_group](ec2_node_group)
 
-#### Post operations
+## Post operations
 
 - After deploying EKS master, you have to update local kubernetes config. 
 
