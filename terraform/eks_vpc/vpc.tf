@@ -14,7 +14,7 @@ resource "aws_vpc" "eks_vpc" {
 resource "aws_subnet" "eks_public_subnet" {
   count = length(data.aws_availability_zones.current.names)
   vpc_id = aws_vpc.eks_vpc.id
-  cidr_block = "10.20.${10+count.index}.0/24"
+  cidr_block = "10.0.${10+count.index}.0/24"
   availability_zone= element(data.aws_availability_zones.current.names, count.index)
   map_public_ip_on_launch = true
 
@@ -30,7 +30,7 @@ resource "aws_subnet" "eks_public_subnet" {
 resource "aws_subnet" "eks_private_subnet" {
   count = length(data.aws_availability_zones.current.names)
   vpc_id = aws_vpc.eks_vpc.id
-  cidr_block = "10.20.${20+count.index}.0/24"
+  cidr_block = "10.0.${20+count.index}.0/24"
   availability_zone= element(data.aws_availability_zones.current.names, count.index)
   map_public_ip_on_launch = false
 
