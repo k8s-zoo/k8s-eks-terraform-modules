@@ -8,6 +8,7 @@ Terraform modules for creating kubernetes master and worker cluster on AWS [EKS]
 
 ## List of modules
 
+- [eks_vpc](terraform/eks_vpc)
 - [eks_master](terraform/eks_master)
 - [eks_node_group](terraform/eks_node_group)
 - [ec2_node_group](terraform/ec2_node_group)
