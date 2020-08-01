@@ -37,7 +37,7 @@ resource "aws_route_table" "eks_public_subnets_rt" {
   }
 
   tags = {
-    Name    = local.name_prefix + "-public"
+    Name    = "${local.name_prefix}-public"
     Cluster = var.cluster_name
     owner   = var.owner
     stack   = var.stack
