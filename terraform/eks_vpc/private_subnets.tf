@@ -17,7 +17,13 @@ resource "aws_subnet" "eks_private_subnet" {
 }
 
 resource "aws_eip" "eks_private_nat_gw_eip" {
-  vpc = aws_vpc.eks_vpc.id
+  tags = {
+    Name = local.name_prefix
+    Cluster = var.cluster_name
+    owner = var.owner
+    stack = var.stack
+    env = var.env
+  }
 }
 
 resource "aws_nat_gateway" "eks_private_nat_gw" {
