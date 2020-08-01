@@ -41,9 +41,10 @@ resource "aws_internet_gateway" "eks_igw" {
   }
 }
 
-resource "aws_route_table_association" "eks_rt_association" {
-  gateway_id     = aws_internet_gateway.eks_igw.id
+resource "aws_route" "eks_rt_igw" {
   route_table_id = aws_vpc.eks_vpc.main_route_table_id
+  destination_cidr_block    = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.eks_igw.id
 }
 
 ## Private Subnet Setup
