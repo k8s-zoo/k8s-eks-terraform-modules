@@ -32,11 +32,6 @@ resource "aws_route_table" "eks_public_subnets_rt" {
   vpc_id = aws_vpc.eks_vpc.id
 
   route {
-    cidr_block = "10.0.0.0/16"
-    gateway_id = local
-  }
-
-  route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.eks_public_ig.id
   }
