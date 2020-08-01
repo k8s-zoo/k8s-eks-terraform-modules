@@ -3,5 +3,5 @@ terraform {
 }
 
 locals {
-  name_prefix = "${var.cluster_name}-eks-master"
+  name_prefix = "${var.cluster_name}-eks"
 }

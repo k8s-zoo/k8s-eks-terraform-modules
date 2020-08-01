@@ -11,6 +11,8 @@ resource "aws_vpc" "eks_vpc" {
   }
 }
 
+## Public Subnet Setup
+
 resource "aws_subnet" "eks_public_subnet" {
   count = length(data.aws_availability_zones.current.names)
   vpc_id = aws_vpc.eks_vpc.id
@@ -27,6 +29,25 @@ resource "aws_subnet" "eks_public_subnet" {
   }
 }
 
+resource "aws_internet_gateway" "eks_igw" {
+  vpc_id = aws_vpc.eks_vpc.id
+
+  tags = {
+    Name    = local.name_prefix
+    Cluster = var.cluster_name
+    owner   = var.owner
+    stack   = var.stack
+    env     = var.env
+  }
+}
+
+resource "aws_route_table_association" "eks_rt_association" {
+  gateway_id     = aws_internet_gateway.eks_igw.id
+  route_table_id = data.aws_route_table.eks_public_subnet_rt.id
+}
+
+## Private Subnet Setup
+
 resource "aws_subnet" "eks_private_subnet" {
   count = length(data.aws_availability_zones.current.names)
   vpc_id = aws_vpc.eks_vpc.id
@@ -42,3 +63,17 @@ resource "aws_subnet" "eks_private_subnet" {
     env     = var.env
   }
 }
+
+//resource "aws_nat_gateway" "eks_gw" {
+//  count = aws_subnet.eks_private_subnet.count
+//  allocation_id = aws_eip.nat.id
+//  subnet_id     = aws_subnet.example.id
+//
+//  tags = {
+//    Name    = local.name_prefix
+//    Cluster = var.cluster_name
+//    owner   = var.owner
+//    stack   = var.stack
+//    env     = var.env
+//  }
+//}
