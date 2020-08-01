@@ -44,3 +44,9 @@ resource "aws_route" "eks_private_nat_route" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id = aws_nat_gateway.eks_private_nat_gw.id
 }
+
+resource "aws_route_table_association" "eks_private_rt_association" {
+  count = length(aws_subnet.eks_private_subnet.*.id)
+  subnet_id      = element(aws_subnet.eks_private_subnet.*.id, count.index)
+  route_table_id = aws_vpc.eks_vpc.main_route_table_id
+}
