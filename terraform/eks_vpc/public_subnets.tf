@@ -7,25 +7,14 @@ resource "aws_subnet" "eks_public_subnet" {
   availability_zone= element(data.aws_availability_zones.current.names, count.index)
   map_public_ip_on_launch = true
 
-  tags = {
-    Name    = local.name_prefix
-    Cluster = var.cluster_name
-    owner   = var.owner
-    stack   = var.stack
-    env     = var.env
-  }
+  tags = merge(local.common_tags, {
+    Type = "public",
+  })
 }
 
 resource "aws_internet_gateway" "eks_public_ig" {
   vpc_id = aws_vpc.eks_vpc.id
-
-  tags = {
-    Name    = local.name_prefix
-    Cluster = var.cluster_name
-    owner   = var.owner
-    stack   = var.stack
-    env     = var.env
-  }
+  tags = local.common_tags
 }
 
 resource "aws_route_table" "eks_public_subnets_rt" {
@@ -36,13 +25,10 @@ resource "aws_route_table" "eks_public_subnets_rt" {
     gateway_id = aws_internet_gateway.eks_public_ig.id
   }
 
-  tags = {
-    Name    = "${local.name_prefix}-public"
-    Cluster = var.cluster_name
-    owner   = var.owner
-    stack   = var.stack
-    env     = var.env
-  }
+  tags = merge(local.common_tags, {
+    Vpc  = aws_vpc.eks_vpc.id
+    Type = "public",
+  })
 }
 
 resource "aws_route_table_association" "eks_public_rt_association" {

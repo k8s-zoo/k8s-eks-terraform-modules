@@ -7,36 +7,23 @@ resource "aws_subnet" "eks_private_subnet" {
   availability_zone = element(data.aws_availability_zones.current.names, count.index)
   map_public_ip_on_launch = false
 
-  tags = {
-    Name = local.name_prefix
-    Cluster = var.cluster_name
-    owner = var.owner
-    stack = var.stack
-    env = var.env
-  }
+  tags = merge(local.common_tags, {
+    Type = "private",
+  })
 }
 
 resource "aws_eip" "eks_private_nat_gw_eip" {
-  tags = {
-    Name = local.name_prefix
-    Cluster = var.cluster_name
-    owner = var.owner
-    stack = var.stack
-    env = var.env
-  }
+  tags = local.common_tags
 }
 
 resource "aws_nat_gateway" "eks_private_nat_gw" {
   allocation_id = aws_eip.eks_private_nat_gw_eip.id
   subnet_id = element(aws_subnet.eks_private_subnet.*.id, 0)
 
-  tags = {
-    Name = local.name_prefix
-    Cluster = var.cluster_name
-    owner = var.owner
-    stack = var.stack
-    env = var.env
-  }
+  tags = merge(local.common_tags, {
+    Vpc  = aws_vpc.eks_vpc.id
+    Type = "private",
+  })
 }
 
 resource "aws_route" "eks_private_nat_route" {
