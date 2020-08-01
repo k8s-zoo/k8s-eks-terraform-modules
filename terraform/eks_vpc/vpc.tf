@@ -43,7 +43,7 @@ resource "aws_internet_gateway" "eks_igw" {
 
 resource "aws_route_table_association" "eks_rt_association" {
   gateway_id     = aws_internet_gateway.eks_igw.id
-  route_table_id = data.aws_route_table.eks_public_subnet_rt.id
+  route_table_id = aws_vpc.eks_vpc.main_route_table_id
 }
 
 ## Private Subnet Setup
