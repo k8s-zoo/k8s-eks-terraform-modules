@@ -22,7 +22,7 @@ variable "security_group_ids" {
 
 variable "endpoint_private_access" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "endpoint_public_access" {
