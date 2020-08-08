@@ -31,21 +31,19 @@ resource "aws_security_group_rule" "node-security-group-ingress-self" {
 }
 
 resource "aws_security_group_rule" "node-security-group-ingress-cluster" {
-  description       = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
-  from_port         = 1025
-  protocol          = "tcp"
-  security_group_id = aws_security_group.node-security-group.id
-  #source_security_group_id = var.cluster_master_sg_id
+  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
+  from_port                = 1025
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.node-security-group.id
   source_security_group_id = data.aws_eks_cluster.eks-cluster.vpc_config.0.cluster_security_group_id
   to_port                  = 65535
   type                     = "ingress"
 }
 
 resource "aws_security_group_rule" "worker-cluster-ingress-node-https" {
-  description = "Allow pods to communicate with the cluster API Server"
-  from_port   = 443
-  protocol    = "tcp"
-  #security_group_id        = var.cluster_master_sg_id
+  description              = "Allow pods to communicate with the cluster API Server"
+  from_port                = 443
+  protocol                 = "tcp"
   security_group_id        = data.aws_eks_cluster.eks-cluster.vpc_config.0.cluster_security_group_id
   source_security_group_id = aws_security_group.node-security-group.id
   to_port                  = 443
@@ -53,12 +51,11 @@ resource "aws_security_group_rule" "worker-cluster-ingress-node-https" {
 }
 
 resource "aws_security_group_rule" "master-cluster-ingress-node-https" {
-  description       = "Allow pods to communicate with the cluster API Server"
-  from_port         = 443
-  protocol          = "tcp"
-  to_port           = 443
-  security_group_id = aws_security_group.node-security-group.id
-  #source_security_group_id = var.cluster_master_sg_id
+  description              = "Allow pods to communicate with the cluster API Server"
+  from_port                = 443
+  protocol                 = "tcp"
+  to_port                  = 443
+  security_group_id        = aws_security_group.node-security-group.id
   source_security_group_id = data.aws_eks_cluster.eks-cluster.vpc_config.0.cluster_security_group_id
   type                     = "ingress"
 }

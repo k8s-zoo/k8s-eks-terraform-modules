@@ -8,8 +8,9 @@ resource "aws_subnet" "eks_public_subnet" {
   map_public_ip_on_launch = true
 
   tags = merge(local.common_tags, {
-    Name = "${local.name_prefix}-public"
-    Type = "public",
+    Name                       = "${local.name_prefix}-public"
+    Type                       = "public",
+    kubernetes.io / role / elb = 1
   })
 }
 
