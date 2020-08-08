@@ -21,7 +21,7 @@ resource "aws_security_group" "worker-node" {
 }
 
 resource "aws_security_group_rule" "worker-node-ingress-self" {
-  description              = "Allow node to communicate with each other"
+  description              = "Allow nodes to communicate with each other"
   from_port                = 0
   protocol                 = "-1"
   security_group_id        = aws_security_group.worker-node.id
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "worker-node-ingress-self" {
 }
 
 resource "aws_security_group_rule" "worker-node-ingress-cluster" {
-  description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
+  description              = "Allow node Kubelets and pods to receive communication from the cluster control plane"
   from_port                = 1025
   protocol                 = "tcp"
   security_group_id        = aws_security_group.worker-node.id
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "worker-node-ingress-cluster" {
 }
 
 resource "aws_security_group_rule" "worker-cluster-ingress-node-https" {
-  description              = "Allow pods to communicate with the cluster API Server"
+  description              = "Allow pods to receive communication from cluster API Server"
   from_port                = 443
   protocol                 = "tcp"
   security_group_id        = data.aws_eks_cluster.eks-cluster.vpc_config.0.cluster_security_group_id
@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "worker-cluster-ingress-node-https" {
 }
 
 resource "aws_security_group_rule" "master-cluster-ingress-node-https" {
-  description              = "Allow pods to communicate with the cluster API Server"
+  description              = "Allow API Server to receive communication from pods."
   from_port                = 443
   protocol                 = "tcp"
   to_port                  = 443
