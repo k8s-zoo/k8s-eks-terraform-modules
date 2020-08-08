@@ -8,9 +8,10 @@ resource "aws_subnet" "eks_private_subnet" {
   map_public_ip_on_launch = false
 
   tags = merge(local.common_tags, {
-    Name                                 = "${local.name_prefix}-private"
-    Type                                 = "private",
-    "kubernetes.io/cluster/internal-elb" = 1
+    Name                                        = "${local.name_prefix}-private"
+    Type                                        = "private",
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/cluster/internal-elb"        = 1
   })
 }
 
